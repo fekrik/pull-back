@@ -21,3 +21,17 @@ html = html.replace(/<script>([\s\S]*)<\/script>\n<\/body>/, (all) => all);
 fs.mkdirSync('dist-single', { recursive: true });
 fs.writeFileSync('dist-single/index.html', html);
 console.log('dist-single/index.html', (html.length / 1e6).toFixed(2), 'MB');
+
+// Artifact variant: the host page adds its own document skeleton.
+if (process.argv.includes('--artifact')) {
+  const body = html
+    .replace(/<!doctype html>/i, '')
+    .replace(/<\/?html[^>]*>/g, '')
+    .replace(/<\/?head>/g, '')
+    .replace(/<\/?body>/g, '')
+    .replace(/<meta charset[^>]*>|<meta httpEquiv[^>]*>|<meta name="viewport"[^>]*>|<meta name="theme-color"[^>]*>/g, '')
+    .replace(/<title>[^<]*<\/title>/, '');
+  const out = `<title>Pull Back</title>\n<style>:root{color-scheme:dark;background:#12110f}html,body{background:#12110f;color:#f3ede3}</style>\n${body.trim()}\n`;
+  fs.writeFileSync('dist-single/artifact.html', out);
+  console.log('dist-single/artifact.html', (out.length / 1e6).toFixed(2), 'MB');
+}

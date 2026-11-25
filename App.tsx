@@ -112,16 +112,20 @@ function Game() {
     try {
       if (Platform.OS === 'web') {
         const nav: any = typeof navigator !== 'undefined' ? navigator : null;
-        if (nav?.share) {
-          await nav.share({ text });
-          return;
+        try {
+          if (nav?.share) {
+            await nav.share({ text });
+            return;
+          }
+        } catch (e: any) {
+          if (e?.name === 'AbortError') return;
         }
-        if (nav?.clipboard?.writeText) {
+        try {
           await nav.clipboard.writeText(text);
           flash('Result copied');
-          return;
+        } catch {
+          flash('Select the squares above to copy your result');
         }
-        flash(text);
         return;
       }
       await Share.share({ message: text });
