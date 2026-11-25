@@ -1,0 +1,284 @@
+[
+  {
+    "file": "photos/croissant.jpg",
+    "answer": "croissant",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Croissant - Massachusetts",
+      "author": "Daderot",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Croissant_-_Massachusetts.jpg"
+    }
+  },
+  {
+    "file": "photos/sunflower.jpg",
+    "answer": "sunflower",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.32
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Sunflower head 2026 G1",
+      "author": "George Chernilevsky",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Sunflower_head_2026_G1.jpg"
+    }
+  },
+  {
+    "file": "photos/honeycomb.jpg",
+    "answer": "honeycomb",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.45
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Abandoned bee honeycomb",
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Abandoned_bee_honeycomb.jpg"
+    }
+  },
+  {
+    "file": "photos/pine-cone.jpg",
+    "answer": "pine-cone",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.42,
+      0.5
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "A pine cone",
+      "author": "Petar Milošević",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:A_pine_cone.jpg"
+    }
+  },
+  {
+    "file": "photos/padlock.jpg",
+    "answer": "padlock",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.62
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Rusty padlock on Blacks, Oban, July 2020",
+      "author": "Blood Red Sandman",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Rusty_padlock_on_Blacks,_Oban,_July_2020.jpg"
+    }
+  },
+  {
+    "file": "photos/strawberry.jpg",
+    "answer": "strawberry",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.575,
+      0.45
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Garden strawberry (Fragaria × ananassa) single2",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Garden_strawberry_(Fragaria_%C3%97_ananassa)_single2.jpg"
+    }
+  },
+  {
+    "file": "photos/tennis-ball.jpg",
+    "answer": "tennis-ball",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.4,
+      0.45
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "A type of tennis ball",
+      "author": "Bertoka",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:A_type_of_tennis_ball.jpg"
+    }
+  },
+  {
+    "file": "photos/guitar.jpg",
+    "answer": "guitar",
+    "crop": [
+      0.5,
+      0.45
+    ],
+    "focal": [
+      0.72,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Guitar May 2009-1",
+      "author": "Alvesgaspar",
+      "license": "CC BY 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Guitar_May_2009-1.jpg"
+    }
+  },
+  {
+    "file": "photos/cactus.jpg",
+    "answer": "cactus",
+    "crop": [
+      0.6,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.35
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Pine View Nursery - Cactus - Cleistocactus winteri - Golden Rat Tail 03",
+      "author": "Sumit Surai",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Pine_View_Nursery_-_Cactus_-_Cleistocactus_winteri_-_Golden_Rat_Tail_03.jpg"
+    }
+  },
+  {
+    "file": "photos/wooden-spoon.jpg",
+    "answer": "spoon",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.25,
+      0.45
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Wooden Spoon and Fork 01",
+      "author": "PagesAndPathsPH",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Wooden_Spoon_and_Fork_01.jpg"
+    },
+    "levels": [
+      0.015,
+      0.04,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ]
+  },
+  {
+    "file": "photos/cauliflower.jpg",
+    "answer": "cauliflower",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Cauliflower (20240611)",
+      "author": "Fumikas Sagisavas",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Cauliflower_(20240611).jpg"
+    }
+  },
+  {
+    "file": "photos/pineapple.jpg",
+    "answer": "pineapple",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.395,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Ananas (Ananas comosus), Früchte",
+      "author": "flowcomm",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Ananas_(Ananas_comosus),_Fr%C3%BCchte.jpg"
+    },
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ]
+  },
+  {
+    "file": "photos/corn-on-the-cob.jpg",
+    "answer": "corn-on-the-cob",
+    "crop": [
+      0.5,
+      0.4
+    ],
+    "focal": [
+      0.57,
+      0.4
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Corn on the cob - Massachusetts",
+      "author": "Daderot",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Corn_on_the_cob_-_Massachusetts.jpg"
+    }
+  },
+  {
+    "file": "photos/kiwi-fruit.jpg",
+    "answer": "kiwi-fruit",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.42
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Kiwifruit cross section",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kiwifruit_cross_section.jpg"
+    }
+  }
+]
