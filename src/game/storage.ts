@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { Run } from './freeplay';
 import { daysBetween, FAIL_SCORE, localDayKey, RoundState, score } from './logic';
 
 const KEY = 'pullback:v1';
@@ -11,9 +12,20 @@ export type SaveData = {
   /** Today's unfinished round, so closing the app does not reset it. */
   inProgress?: { day: string; round: RoundState };
   seenHowTo?: boolean;
-  /** Puzzle ids finished in practice, so "Next puzzle" doesn't repeat them. */
-  practicePlayed?: string[];
+  freePlay?: FreePlaySave;
 };
+
+export type FreePlaySave = {
+  best: number;
+  bestSolved: number;
+  runs: number;
+  /** Recently seen photo ids, pushed to the back of the next run. */
+  recent: string[];
+  /** The run in progress, so leaving the app doesn't end it. */
+  current?: Run;
+};
+
+export const EMPTY_FREE: FreePlaySave = { best: 0, bestSolved: 0, runs: 0, recent: [] };
 
 const EMPTY: SaveData = { history: {} };
 

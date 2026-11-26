@@ -17,7 +17,17 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { GuessInput } from './src/components/GuessInput';
 import { ZoomImage } from './src/components/ZoomImage';
 import { ANSWERS_BY_ID, Answer } from './src/data/answers';
-import { PUZZLES } from './src/data/puzzles';
+import { Puzzle } from './src/data/puzzles';
+import {
+  currentPuzzle,
+  hasFreePlay,
+  isOver,
+  LIVES,
+  newRun,
+  nextPhoto,
+  Run,
+  settle,
+} from './src/game/freeplay';
 import {
   applyGuess,
   currentLevel,
@@ -33,9 +43,10 @@ import {
   RoundState,
   score,
   shareText,
+  SHARE_URL,
   untilNextPuzzle,
 } from './src/game/logic';
-import { computeStats, load, recordFinished, save, SaveData } from './src/game/storage';
+import { computeStats, EMPTY_FREE, load, recordFinished, save, SaveData } from './src/game/storage';
 import { C } from './src/theme';
 
 const haptic = (kind: 'tap' | 'wrong' | 'win' | 'lose') => {
@@ -46,7 +57,7 @@ const haptic = (kind: 'tap' | 'wrong' | 'win' | 'lose') => {
   else Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
 };
 
-type Mode = { kind: 'daily' } | { kind: 'practice'; index: number };
+type Mode = 'daily' | 'free';
 
 export default function App() {
   return (
@@ -63,9 +74,9 @@ function Game() {
   const todayNumber = puzzleNumberFor(today);
 
   const [data, setData] = useState<SaveData | null>(null);
-  const [mode, setMode] = useState<Mode>({ kind: 'daily' });
-  const [practice, setPractice] = useState<RoundState | null>(null);
+  const [mode, setMode] = useState<Mode>('daily');
   const [daily, setDaily] = useState<RoundState>(newRound(todayNumber));
+  const [run, setRun] = useState<Run | null>(null);
   const [sheet, setSheet] = useState<null | 'stats' | 'howto'>(null);
   const [toast, setToast] = useState<string | null>(null);
 
@@ -75,6 +86,7 @@ function Game() {
       const done = d.history[today];
       if (done) setDaily(done.round);
       else if (d.inProgress?.day === today) setDaily(d.inProgress.round);
+      if (d.freePlay?.current) setRun(d.freePlay.current);
       if (!d.seenHowTo) setSheet('howto');
     });
   }, [today]);
@@ -84,8 +96,36 @@ function Game() {
     save(next);
   }, []);
 
-  const puzzle = mode.kind === 'daily' ? puzzleFor(todayNumber) : PUZZLES[mode.index];
-  const round = mode.kind === 'daily' ? daily : practice!;
+  const free = data?.freePlay ?? EMPTY_FREE;
+
+  const saveRun = (r: Run, base: SaveData | null = data) => {
+    setRun(r);
+    if (!base) return;
+    const fp = base.freePlay ?? EMPTY_FREE;
+    let nextFree = { ...fp, current: isOver(r) ? undefined : r };
+    if (isOver(r)) {
+      nextFree = {
+        ...nextFree,
+        runs: fp.runs + 1,
+        best: Math.max(fp.best, r.points),
+        bestSolved: Math.max(fp.bestSolved, r.solved),
+        recent: [...r.order.slice(0, r.pos + 1), ...fp.recent].slice(0, 120),
+      };
+    }
+    persist({ ...base, freePlay: nextFree });
+  };
+
+  const startFreePlay = () => {
+    haptic('tap');
+    setMode('free');
+    setSheet(null);
+    if (!run || isOver(run)) saveRun(newRun(free.recent));
+  };
+
+  // Free play with no run yet (first render) falls back to the daily until the run exists.
+  const inFree = mode === 'free' && run != null;
+  const puzzle: Puzzle = inFree ? currentPuzzle(run!) : puzzleFor(todayNumber);
+  const round = inFree ? run!.round : daily;
   const level = currentLevel(round);
   const answer = ANSWERS_BY_ID[puzzle.answerId];
   const shares = puzzle.levels ?? DEFAULT_LEVEL_SHARES;
@@ -96,12 +136,8 @@ function Game() {
     else if (next.status === 'lost') haptic('lose');
     else haptic('wrong');
 
-    if (mode.kind === 'practice') {
-      setPractice(next);
-      if (next.status !== 'playing' && data) {
-        const played = data.practicePlayed ?? [];
-        if (!played.includes(puzzle.id)) persist({ ...data, practicePlayed: [...played, puzzle.id] });
-      }
+    if (inFree) {
+      saveRun(next.status === 'playing' ? { ...run!, round: next } : settle(run!, next));
       return;
     }
     setDaily(next);
@@ -110,9 +146,8 @@ function Game() {
     else persist(recordFinished(data, today, next));
   };
 
-  const doShare = async () => {
+  const doShare = async (text: string) => {
     haptic('tap');
-    const text = shareText(round);
     try {
       if (Platform.OS === 'web') {
         const nav: any = typeof navigator !== 'undefined' ? navigator : null;
@@ -128,35 +163,14 @@ function Game() {
           await nav.clipboard.writeText(text);
           flash('Result copied');
         } catch {
-          flash('Select the squares above to copy your result');
+          flash('Select the result above to copy it');
         }
         return;
       }
       await Share.share({ message: text });
     } catch {
-      flash('Could not share. Long-press the squares to copy.');
+      flash('Could not share. Long-press the result to copy.');
     }
-  };
-
-  /** Practice: jump to a random puzzle the player hasn't done yet (never today's daily). */
-  const playRandom = () => {
-    const todayIndex = (todayNumber - 1) % PUZZLES.length;
-    const played = new Set(data?.practicePlayed ?? []);
-    const current = mode.kind === 'practice' ? mode.index : -1;
-    let pool = PUZZLES.map((_, i) => i).filter(
-      (i) => i !== todayIndex && i !== current && !played.has(PUZZLES[i].id),
-    );
-    if (!pool.length) {
-      // Played them all: start the cycle again.
-      pool = PUZZLES.map((_, i) => i).filter((i) => i !== todayIndex && i !== current);
-      if (data) persist({ ...data, practicePlayed: [] });
-      flash("You've played them all. Starting over.");
-    }
-    const i = pool[Math.floor(Math.random() * pool.length)];
-    haptic('tap');
-    setPractice(newRound(i + 1));
-    setMode({ kind: 'practice', index: i });
-    setSheet(null);
   };
 
   const flash = (msg: string) => {
@@ -179,7 +193,15 @@ function Game() {
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.title}>Pull Back</Text>
             <Text style={styles.subtitle}>
-              {mode.kind === 'daily' ? `Daily #${todayNumber}` : "Practice · doesn't count"}
+              {inFree ? (
+                <>
+                  <Text style={{ color: C.wrong }}>{'♥'.repeat(Math.max(run!.lives, 0))}</Text>
+                  <Text style={{ color: C.unused }}>{'♥'.repeat(LIVES - Math.max(run!.lives, 0))}</Text>
+                  {`  ${run!.points} pts · photo ${run!.pos + 1}`}
+                </>
+              ) : (
+                `Daily #${todayNumber}`
+              )}
             </Text>
           </View>
           <Pressable onPress={() => setSheet('stats')} hitSlop={10}>
@@ -187,12 +209,38 @@ function Game() {
           </Pressable>
         </View>
 
+        {hasFreePlay() && (
+          <View style={styles.tabs}>
+            {(['daily', 'free'] as const).map((m) => {
+              const active = (m === 'free') === inFree;
+              return (
+                <Pressable
+                  key={m}
+                  onPress={() => (m === 'free' ? startFreePlay() : setMode('daily'))}
+                  style={[styles.tab, active && styles.tabActive]}
+                >
+                  <Text style={[styles.tabText, active && styles.tabTextActive]}>
+                    {m === 'daily' ? 'Daily' : 'Free play'}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        )}
+
         <ScrollView
           contentContainerStyle={styles.body}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <ZoomImage key={`${mode.kind}-${puzzle.id}`} source={puzzle.image} size={size} focal={puzzle.focal} shares={shares} level={level} />
+          <ZoomImage
+            key={inFree ? `free-${run!.pos}-${puzzle.id}` : `daily-${puzzle.id}`}
+            source={puzzle.image}
+            size={size}
+            focal={puzzle.focal}
+            shares={shares}
+            level={level}
+          />
 
           <LevelDots round={round} />
 
@@ -210,17 +258,36 @@ function Game() {
 
           <GuessList round={round} />
 
-          {finished ? (
-            <Result
+          {finished && !inFree && (
+            <DailyResult
               round={round}
               answer={answer}
               credit={puzzle.credit}
-              onShare={doShare}
-              isDaily={mode.kind === 'daily'}
-              onBackToDaily={() => setMode({ kind: 'daily' })}
-              onNext={playRandom}
+              onShare={() => doShare(shareText(round))}
+              onFreePlay={hasFreePlay() ? startFreePlay : undefined}
             />
-          ) : null}
+          )}
+          {finished && inFree && (
+            <FreeResult
+              run={run!}
+              best={free.best}
+              answer={answer}
+              credit={puzzle.credit}
+              onNext={() => {
+                haptic('tap');
+                saveRun(nextPhoto(run!));
+              }}
+              onNewRun={() => {
+                haptic('tap');
+                saveRun(newRun(free.recent));
+              }}
+              onShare={() =>
+                doShare(
+                  `Pull Back free play: ${run!.points} points, ${run!.solved} photo${run!.solved === 1 ? '' : 's'} solved\n${SHARE_URL}`,
+                )
+              }
+            />
+          )}
         </ScrollView>
         {!finished && (
           <View style={styles.bottomBar}>
@@ -237,17 +304,27 @@ function Game() {
         </View>
       )}
 
-      <Sheet visible={sheet === 'howto'} onClose={() => {
-        setSheet(null);
-        if (data && !data.seenHowTo) persist({ ...data, seenHowTo: true });
-      }}>
+      <Sheet
+        visible={sheet === 'howto'}
+        onClose={() => {
+          setSheet(null);
+          if (data && !data.seenHowTo) persist({ ...data, seenHowTo: true });
+        }}
+      >
         <HowTo />
       </Sheet>
       <Sheet visible={sheet === 'stats'} onClose={() => setSheet(null)}>
         {data && <StatsView data={data} today={today} />}
-        <Pressable style={styles.secondary} onPress={playRandom}>
-          <Text style={styles.secondaryText}>Play a random puzzle</Text>
-        </Pressable>
+        {hasFreePlay() && (
+          <View style={{ marginTop: 18 }}>
+            <Text style={styles.distTitle}>Free play</Text>
+            <View style={styles.statRow}>
+              <Stat n={free.best} label="Best run" />
+              <Stat n={free.bestSolved} label="Most photos" />
+              <Stat n={free.runs} label="Runs" />
+            </View>
+          </View>
+        )}
       </Sheet>
     </SafeAreaView>
   );
@@ -281,22 +358,28 @@ function GuessList({ round }: { round: RoundState }) {
   );
 }
 
-function Result({
+const article = (name: string) => (/^[aeiou]/i.test(name) ? 'an' : 'a');
+
+function Credit({ credit }: { credit: Puzzle['credit'] }) {
+  return (
+    <Text style={styles.credit}>
+      Photo: {credit.title} by {credit.author}, {credit.license}
+    </Text>
+  );
+}
+
+function DailyResult({
   round,
   answer,
   credit,
   onShare,
-  isDaily,
-  onBackToDaily,
-  onNext,
+  onFreePlay,
 }: {
   round: RoundState;
   answer: Answer;
-  credit: { title: string; author: string; license: string };
+  credit: Puzzle['credit'];
   onShare: () => void;
-  isDaily: boolean;
-  onBackToDaily: () => void;
-  onNext: () => void;
+  onFreePlay?: () => void;
 }) {
   const s = score(round)!;
   const [clock, setClock] = useState(untilNextPuzzle());
@@ -317,37 +400,76 @@ function Result({
     <View style={styles.result}>
       <Text style={styles.resultHead}>{headline}</Text>
       <Text style={styles.resultAnswer}>
-        It was {/^[aeiou]/i.test(answer.name) ? 'an' : 'a'} <Text style={{ color: C.accent }}>{answer.name}</Text>
+        It was {article(answer.name)} <Text style={{ color: C.accent }}>{answer.name}</Text>
       </Text>
       <Text selectable style={styles.squares}>
         {shareTextSquares(round)}
       </Text>
-      {isDaily ? (
+      <Pressable onPress={onShare} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
+        <Text style={styles.primaryText}>Share result</Text>
+      </Pressable>
+      <Text style={styles.next}>Next daily photo in {clock}</Text>
+      {onFreePlay && (
+        <Pressable
+          onPress={onFreePlay}
+          style={({ pressed }) => [styles.secondary, styles.stretch, pressed && { opacity: 0.8 }]}
+        >
+          <Text style={styles.secondaryText}>Keep playing in Free play</Text>
+        </Pressable>
+      )}
+      <Credit credit={credit} />
+    </View>
+  );
+}
+
+function FreeResult({
+  run,
+  best,
+  answer,
+  credit,
+  onNext,
+  onNewRun,
+  onShare,
+}: {
+  run: Run;
+  best: number;
+  answer: Answer;
+  credit: Puzzle['credit'];
+  onNext: () => void;
+  onNewRun: () => void;
+  onShare: () => void;
+}) {
+  const s = score(run.round)!;
+  const won = s !== FAIL_SCORE;
+  const over = isOver(run);
+  const newBest = over && run.points > 0 && run.points >= best;
+  return (
+    <View style={styles.result}>
+      <Text style={styles.resultHead}>
+        {won ? `+${7 - s} point${7 - s === 1 ? '' : 's'}` : over ? 'Run over' : 'Lost a life'}
+      </Text>
+      <Text style={styles.resultAnswer}>
+        It was {article(answer.name)} <Text style={{ color: C.accent }}>{answer.name}</Text>
+      </Text>
+      {over ? (
         <>
-          <Pressable onPress={onShare} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
-            <Text style={styles.primaryText}>Share result</Text>
+          <Text style={styles.runSummary}>
+            {run.points} points · {run.solved} photo{run.solved === 1 ? '' : 's'} solved
+          </Text>
+          <Text style={styles.next}>{newBest ? 'New best run!' : `Best run: ${best} points`}</Text>
+          <Pressable onPress={onNewRun} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
+            <Text style={styles.primaryText}>Start a new run</Text>
           </Pressable>
-          <Text style={styles.next}>Next daily photo in {clock}</Text>
-          <Pressable onPress={onNext} style={({ pressed }) => [styles.secondary, styles.stretch, pressed && { opacity: 0.8 }]}>
-            <Text style={styles.secondaryText}>Play a random puzzle</Text>
+          <Pressable onPress={onShare}>
+            <Text style={styles.link}>Share score</Text>
           </Pressable>
         </>
       ) : (
-        <>
-          <Pressable onPress={onNext} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
-            <Text style={styles.primaryText}>Next puzzle</Text>
-          </Pressable>
-          <Pressable onPress={onShare}>
-            <Text style={styles.link}>Share result</Text>
-          </Pressable>
-          <Pressable onPress={onBackToDaily}>
-            <Text style={styles.link}>Back to today's puzzle</Text>
-          </Pressable>
-        </>
+        <Pressable onPress={onNext} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
+          <Text style={styles.primaryText}>Next photo</Text>
+        </Pressable>
       )}
-      <Text style={styles.credit}>
-        Photo: {credit.title} by {credit.author}, {credit.license}
-      </Text>
+      <Credit credit={credit} />
     </View>
   );
 }
@@ -396,7 +518,11 @@ function HowTo() {
       <Text style={styles.sheetBody}>Pick your guess from the list. Skipping counts as a miss.</Text>
       <Text style={styles.sheetBody}>After three misses you get the category as a hint.</Text>
       <Text style={styles.sheetBody}>Your score is the level you solved it at. Lower is better.</Text>
-      <Text style={styles.sheetBody}>A new photo arrives at midnight.</Text>
+      <Text style={styles.sheetBody}>A new daily photo arrives at midnight.</Text>
+      <Text style={styles.sheetBody}>
+        Want more? Free play is endless: three lives, points for every photo you name, and it gets
+        harder as you go.
+      </Text>
     </View>
   );
 }
@@ -428,6 +554,19 @@ const styles = StyleSheet.create({
   headerBtn: { color: C.dim, fontSize: 22, width: 28, textAlign: 'center' },
   title: { color: C.text, fontSize: 22, fontWeight: '800', letterSpacing: 0.5 },
   subtitle: { color: C.dim, fontSize: 13, marginTop: 2 },
+  tabs: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    backgroundColor: C.card,
+    borderRadius: 12,
+    padding: 3,
+    marginBottom: 12,
+  },
+  tab: { paddingVertical: 7, paddingHorizontal: 18, borderRadius: 9 },
+  tabActive: { backgroundColor: C.raised },
+  tabText: { color: C.dim, fontSize: 14, fontWeight: '600' },
+  tabTextActive: { color: C.text },
+  runSummary: { color: C.text, fontSize: 18, fontWeight: '700', marginTop: 14, fontVariant: ['tabular-nums'] },
   body: { alignItems: 'center', paddingHorizontal: 16, paddingBottom: 24 },
   bottomBar: { alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8, zIndex: 10 },
   dots: { flexDirection: 'row', gap: 8, marginTop: 16 },
