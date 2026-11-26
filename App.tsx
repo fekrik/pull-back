@@ -184,13 +184,19 @@ function Game() {
   const showHint = round.status === 'playing' && misses(round) >= HINT_AFTER_MISSES;
   const finished = round.status !== 'playing';
   const scrollRef = useRef<React.ComponentRef<typeof ScrollView>>(null);
-  // When a round ends the input bar disappears and the result appears below the photo.
-  // On a phone most of it sits below the fold, so close the keyboard and scroll it into view.
+  // When a round ends, the result goes under the photo. Shrink the photo so the photo and
+  // the whole result fit on one screen, instead of scrolling the photo out of view.
+  const [viewH, setViewH] = useState(0);
+  const [resultH, setResultH] = useState(0);
+  const photoSize =
+    finished && viewH && resultH ? Math.round(Math.max(150, Math.min(size, viewH - resultH - 64))) : size;
   useEffect(() => {
-    if (!finished) return;
+    if (!finished) {
+      setResultH(0);
+      return;
+    }
     Keyboard.dismiss();
-    const t = setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 350);
-    return () => clearTimeout(t);
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
   }, [finished, puzzle.id]);
 
   return (
@@ -241,6 +247,7 @@ function Game() {
 
         <ScrollView
           ref={scrollRef}
+          onLayout={(e) => setViewH(e.nativeEvent.layout.height)}
           contentContainerStyle={styles.body}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -248,7 +255,7 @@ function Game() {
           <ZoomImage
             key={inFree ? `free-${run!.pos}-${puzzle.id}` : `daily-${puzzle.id}`}
             source={puzzle.image}
-            size={size}
+            size={photoSize}
             focal={puzzle.focal}
             shares={shares}
             level={level}
@@ -268,8 +275,12 @@ function Game() {
             </Text>
           )}
 
-          <GuessList round={round} />
+          {!finished && <GuessList round={round} />}
 
+          <View
+            style={styles.resultWrap}
+            onLayout={(e) => finished && setResultH(e.nativeEvent.layout.height)}
+          >
           {finished && !inFree && (
             <DailyResult
               round={round}
@@ -300,6 +311,7 @@ function Game() {
               }
             />
           )}
+          </View>
         </ScrollView>
         {!finished && (
           <View style={styles.bottomBar}>
@@ -579,7 +591,7 @@ const styles = StyleSheet.create({
   tabText: { color: C.dim, fontSize: 14, fontWeight: '600' },
   tabTextActive: { color: C.text },
   runSummary: { color: C.text, fontSize: 18, fontWeight: '700', marginTop: 14, fontVariant: ['tabular-nums'] },
-  body: { alignItems: 'center', paddingHorizontal: 16, paddingBottom: 40 },
+  body: { alignItems: 'center', paddingHorizontal: 16, paddingBottom: 24 },
   bottomBar: { alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8, zIndex: 10 },
   dots: { flexDirection: 'row', gap: 8, marginTop: 16 },
   dot: { width: 34, height: 8, borderRadius: 4 },
@@ -597,7 +609,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     textTransform: 'capitalize',
   },
-  result: { alignItems: 'center', marginTop: 18, width: '100%', maxWidth: 440 },
+  resultWrap: { width: '100%', alignItems: 'center' },
+  result: { alignItems: 'center', marginTop: 14, width: '100%', maxWidth: 440 },
   resultHead: { color: C.text, fontSize: 26, fontWeight: '800' },
   resultAnswer: { color: C.dim, fontSize: 18, marginTop: 6 },
   squares: { color: C.text, fontSize: 18, textAlign: 'center', marginTop: 14, lineHeight: 28 },
