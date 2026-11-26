@@ -22,16 +22,35 @@ fs.mkdirSync('dist-single', { recursive: true });
 fs.writeFileSync('dist-single/index.html', html);
 console.log('dist-single/index.html', (html.length / 1e6).toFixed(2), 'MB');
 
-// Artifact variant: the host page adds its own document skeleton.
+// Artifact variant: the host page adds its own document skeleton, and puzzle images are
+// served as separate files next to the page (keeps the page small; 90 photos would not fit inline).
 if (process.argv.includes('--artifact')) {
-  const body = html
+  let ajs = fs.readFileSync(path.join(dist, m[1]), 'utf8');
+  const assets = new Set();
+  ajs = ajs.replace(/"\/(assets\/[^"]+\.(?:jpg|jpeg|png))"/g, (_, p) => {
+    assets.add(p);
+    return JSON.stringify(p);
+  });
+  let body = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+    .replace(m[0], () => `<script>${ajs.replace(/<\/script/g, '<\\/script')}</script>`)
     .replace(/<!doctype html>/i, '')
     .replace(/<\/?html[^>]*>/g, '')
     .replace(/<\/?head>/g, '')
     .replace(/<\/?body>/g, '')
+    .replace(/<link rel="icon"[^>]*>/, '')
     .replace(/<meta charset[^>]*>|<meta httpEquiv[^>]*>|<meta name="viewport"[^>]*>|<meta name="theme-color"[^>]*>/g, '')
     .replace(/<title>[^<]*<\/title>/, '');
-  const out = `<title>Pull Back</title>\n<style>:root{color-scheme:dark;background:#12110f}html,body{background:#12110f;color:#f3ede3}</style>\n${body.trim()}\n`;
-  fs.writeFileSync('dist-single/artifact.html', out);
-  console.log('dist-single/artifact.html', (out.length / 1e6).toFixed(2), 'MB');
+  const out = `<title>Pull Back</title>\n<style>:root{color-scheme:dark;background:#12110f}html,body{background:#12110f;color:#f3ede3;margin:0}</style>\n${body.trim()}\n`;
+  const outDir = 'dist-artifact';
+  fs.rmSync(outDir, { recursive: true, force: true });
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), out);
+  const files = {};
+  for (const a of assets) {
+    fs.mkdirSync(path.join(outDir, path.dirname(a)), { recursive: true });
+    fs.copyFileSync(path.join(dist, a), path.join(outDir, a));
+    files[a] = a;
+  }
+  fs.writeFileSync(path.join(outDir, 'files.json'), JSON.stringify(files, null, 1));
+  console.log(outDir, (out.length / 1e6).toFixed(2), 'MB page,', assets.size, 'images');
 }
