@@ -623,6 +623,15 @@ function HowTo() {
         licenses. Each one is cropped, and its photographer and license are credited under the photo once
         you finish it. Tap the credit to see the original.
       </Text>
+      <Text style={[styles.sheetBody, { fontSize: 13 }]}>
+        <Text style={styles.link} onPress={() => Linking.openURL('https://pullback.barqlab.app/support')}>
+          Support
+        </Text>
+        <Text style={{ color: C.faint }}>{'   ·   '}</Text>
+        <Text style={styles.link} onPress={() => Linking.openURL('https://pullback.barqlab.app/privacy')}>
+          Privacy policy
+        </Text>
+      </Text>
     </View>
   );
 }
