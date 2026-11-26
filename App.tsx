@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
+import type React from 'react';
 import * as Haptics from 'expo-haptics';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -181,6 +183,15 @@ function Game() {
   const guessed = round.guesses.flatMap((g) => (g.kind === 'skip' ? [] : [g.answerId]));
   const showHint = round.status === 'playing' && misses(round) >= HINT_AFTER_MISSES;
   const finished = round.status !== 'playing';
+  const scrollRef = useRef<React.ComponentRef<typeof ScrollView>>(null);
+  // When a round ends the input bar disappears and the result appears below the photo.
+  // On a phone most of it sits below the fold, so close the keyboard and scroll it into view.
+  useEffect(() => {
+    if (!finished) return;
+    Keyboard.dismiss();
+    const t = setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 350);
+    return () => clearTimeout(t);
+  }, [finished, puzzle.id]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
@@ -229,6 +240,7 @@ function Game() {
         )}
 
         <ScrollView
+          ref={scrollRef}
           contentContainerStyle={styles.body}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -567,7 +579,7 @@ const styles = StyleSheet.create({
   tabText: { color: C.dim, fontSize: 14, fontWeight: '600' },
   tabTextActive: { color: C.text },
   runSummary: { color: C.text, fontSize: 18, fontWeight: '700', marginTop: 14, fontVariant: ['tabular-nums'] },
-  body: { alignItems: 'center', paddingHorizontal: 16, paddingBottom: 24 },
+  body: { alignItems: 'center', paddingHorizontal: 16, paddingBottom: 40 },
   bottomBar: { alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8, zIndex: 10 },
   dots: { flexDirection: 'row', gap: 8, marginTop: 16 },
   dot: { width: 34, height: 8, borderRadius: 4 },
