@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
+  Linking,
   Modal,
   Platform,
   Pressable,
@@ -450,10 +451,15 @@ function GuessList({ round }: { round: RoundState }) {
 const article = (name: string) => (/^[aeiou]/i.test(name) ? 'an' : 'a');
 
 function Credit({ credit }: { credit: Puzzle['credit'] }) {
+  // CC BY / BY-SA ask for title, author, license, a link to the source and a note of changes.
+  const text = `Photo: ${credit.title} by ${credit.author}, ${credit.license}, cropped`;
+  if (!credit.url) return <Text style={styles.credit}>{text}</Text>;
   return (
-    <Text style={styles.credit}>
-      Photo: {credit.title} by {credit.author}, {credit.license}
-    </Text>
+    <Pressable onPress={() => Linking.openURL(credit.url!).catch(() => {})} hitSlop={6}>
+      <Text style={styles.credit}>
+        {text} <Text style={{ textDecorationLine: 'underline' }}>Source</Text>
+      </Text>
+    </Pressable>
   );
 }
 
@@ -611,6 +617,11 @@ function HowTo() {
       <Text style={styles.sheetBody}>
         Want more? Free play is endless: three lives, points for every photo you name, and it gets
         harder as you go.
+      </Text>
+      <Text style={[styles.sheetBody, { color: C.faint, fontSize: 13 }]}>
+        Photos come from Wikimedia Commons and are used under their Creative Commons or public domain
+        licenses. Each one is cropped, and its photographer and license are credited under the photo once
+        you finish it. Tap the credit to see the original.
       </Text>
     </View>
   );
