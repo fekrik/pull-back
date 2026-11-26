@@ -280,5 +280,1513 @@
       "license": "CC BY-SA 4.0",
       "url": "https://commons.wikimedia.org/wiki/File:Kiwifruit_cross_section.jpg"
     }
+  },
+  {
+    "file": "photos/peacock.jpg",
+    "answer": "peacock",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.4,
+      0.3
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Indian Peacock courtship display at Pench national park (April, 2024) 08, edited",
+      "author": "Rohit Sharma (some additional editing by Cart)",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Indian_Peacock_courtship_display_at_Pench_national_park_(April,_2024)_08,_edited.jpg"
+    }
+  },
+  {
+    "file": "photos/umbrella.jpg",
+    "answer": "umbrella",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Beige and brown oil-paper umbrella on the edge of a wooden house in Luang Prabang Laos",
+      "author": "Basile Morin",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Beige_and_brown_oil-paper_umbrella_on_the_edge_of_a_wooden_house_in_Luang_Prabang_Laos.jpg"
+    }
+  },
+  {
+    "file": "photos/lime.jpg",
+    "answer": "lime",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.45
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Lime - whole and halved",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Lime_-_whole_and_halved.jpg"
+    }
+  },
+  {
+    "file": "photos/acorn.jpg",
+    "answer": "acorn",
+    "crop": [
+      0.5,
+      0.45
+    ],
+    "focal": [
+      0.45,
+      0.3
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Quercus robur acorn - Keila",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Quercus_robur_acorn_-_Keila.jpg"
+    }
+  },
+  {
+    "file": "photos/starfish.jpg",
+    "answer": "starfish",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Horned Starfish Macro",
+      "author": "“Jon Zander (Digon3)\"",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Horned_Starfish_Macro.JPG"
+    }
+  },
+  {
+    "file": "photos/raspberry.jpg",
+    "answer": "raspberry",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Raspberry - whole (Rubus idaeus)",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Raspberry_-_whole_(Rubus_idaeus).jpg"
+    }
+  },
+  {
+    "file": "photos/chili-pepper.jpg",
+    "answer": "chili-pepper",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.45
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Capsicum - red chili chilli - piment rouge - roter Chili 01",
+      "author": "Norbert Nagel, Mörfelden-Walldorf, Germany",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Capsicum_-_red_chili_chilli_-_piment_rouge_-_roter_Chili_01.jpg"
+    }
+  },
+  {
+    "file": "photos/bee.jpg",
+    "answer": "bee",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.3
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Apis mellifera - Brassica napus - Valingu",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Apis_mellifera_-_Brassica_napus_-_Valingu.jpg"
+    }
+  },
+  {
+    "file": "photos/banana.jpg",
+    "answer": "banana",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.2,
+      0.68
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Banana-Sitia-Crete",
+      "author": "Petro Stelte",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Banana-Sitia-Crete.jpg"
+    }
+  },
+  {
+    "file": "photos/clothespin.jpg",
+    "answer": "clothespin",
+    "crop": [
+      0.45,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Red clothespin",
+      "author": "Włodzimierz Wysocki",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Red_clothespin.JPG"
+    }
+  },
+  {
+    "file": "photos/anchor.jpg",
+    "answer": "anchor",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.55
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Bremerhaven, Neuer Hafen, Anker -- 2024 -- 2228",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bremerhaven,_Neuer_Hafen,_Anker_--_2024_--_2228.jpg"
+    }
+  },
+  {
+    "file": "photos/cabbage.jpg",
+    "answer": "cabbage",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.55
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "A large cabbage",
+      "author": "Subhrajyoti07",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:A_large_cabbage.jpg"
+    }
+  },
+  {
+    "file": "photos/dice.jpg",
+    "answer": "dice",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.43,
+      0.55
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Dice - 1-2-4-5-6",
+      "author": "PierreSelim",
+      "license": "CC BY 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Dice_-_1-2-4-5-6.jpg"
+    }
+  },
+  {
+    "file": "photos/zebra.jpg",
+    "answer": "zebra",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.45
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Equus zebra hartmannae - Etosha 2015",
+      "author": "Yathin S Krishnappa",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Equus_zebra_hartmannae_-_Etosha_2015.jpg"
+    }
+  },
+  {
+    "file": "photos/artichoke.jpg",
+    "answer": "artichoke",
+    "crop": [
+      0.6,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.35
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Artichoke in Brazil",
+      "author": "Wilfredor",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Artichoke_in_Brazil.jpg"
+    }
+  },
+  {
+    "file": "photos/almond.jpg",
+    "answer": "almond",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.3
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Almonds - in shell, shell cracked open, shelled, blanched",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg"
+    }
+  },
+  {
+    "file": "photos/butterfly.jpg",
+    "answer": "butterfly",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.35
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Butterfly April 2008-2a",
+      "author": "Alvesgaspar",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Butterfly_April_2008-2a.jpg"
+    }
+  },
+  {
+    "file": "photos/fig.jpg",
+    "answer": "fig",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Fig (Ficus carica) fruit halved",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Fig_(Ficus_carica)_fruit_halved.jpg"
+    }
+  },
+  {
+    "file": "photos/nail.jpg",
+    "answer": "nail",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.75
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Rostige Nägel -- 2021 -- 4236",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Rostige_N%C3%A4gel_--_2021_--_4236.jpg"
+    }
+  },
+  {
+    "file": "photos/cookie.jpg",
+    "answer": "cookie",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.55
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Choc-Chip-Cookie",
+      "author": "Evan-Amos",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Choc-Chip-Cookie.jpg"
+    }
+  },
+  {
+    "file": "photos/baseball.jpg",
+    "answer": "baseball",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.45
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Baseball-2",
+      "author": "Hydrargyrum (derived from a photo by Tage Olsin)",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Baseball-2.jpg"
+    }
+  },
+  {
+    "file": "photos/sunglasses.jpg",
+    "answer": "sunglasses",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.55
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "2008-07-27 Sunglasses",
+      "author": "Ildar Sagdejev (Specious)",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:2008-07-27_Sunglasses.jpg"
+    }
+  },
+  {
+    "file": "photos/onion.jpg",
+    "answer": "onion",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.52,
+      0.9
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Onion on White",
+      "author": "Colin",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Onion_on_White.JPG"
+    }
+  },
+  {
+    "file": "photos/coconut.jpg",
+    "answer": "coconut",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Coconuts - single and cracked open",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Coconuts_-_single_and_cracked_open.jpg"
+    }
+  },
+  {
+    "file": "photos/snail.jpg",
+    "answer": "snail",
+    "crop": [
+      0.45,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.6
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Amber snail (Succinea putris) Riga",
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Amber_snail_(Succinea_putris)_Riga.jpg"
+    }
+  },
+  {
+    "file": "photos/peach.jpg",
+    "answer": "peach",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Autumn Red peaches",
+      "author": "Jack Dykinga, USDA",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Autumn_Red_peaches.jpg"
+    }
+  },
+  {
+    "file": "photos/cheese-grater.jpg",
+    "answer": "cheese-grater",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.6
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Kitchen grater",
+      "author": "Santeri Viinamäki",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kitchen_grater.jpg"
+    }
+  },
+  {
+    "file": "photos/ladybug.jpg",
+    "answer": "ladybug",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.45
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Siebenpunkt-Marienkäfer (Coccinella septempunctata) auf Blüte im FFH-Gebiet \"Viernheimer Waldheide und angrenzende Flächen\"",
+      "author": "Stephan Sprinz",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Siebenpunkt-Marienk%C3%A4fer_(Coccinella_septempunctata)_auf_Bl%C3%BCte_im_FFH-Gebiet_%22Viernheimer_Waldheide_und_angrenzende_Fl%C3%A4chen%22.jpg"
+    }
+  },
+  {
+    "file": "photos/lettuce.jpg",
+    "answer": "lettuce",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.6
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Romaine lettuce",
+      "author": "Rainer Zenz",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Romaine_lettuce.jpg"
+    }
+  },
+  {
+    "file": "photos/compass.jpg",
+    "answer": "compass",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.48
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "2016 Busola",
+      "author": "Jacek Halicki",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:2016_Busola.JPG"
+    }
+  },
+  {
+    "file": "photos/tomato.jpg",
+    "answer": "tomato",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.75,
+      0.55
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Bangladeshi Tomato",
+      "author": "Jubair Bin Iqbal",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bangladeshi_Tomato.jpg"
+    }
+  },
+  {
+    "file": "photos/donut.jpg",
+    "answer": "donut",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.5
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Entenmann-Cake-Donut",
+      "author": "Evan-Amos",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Entenmann-Cake-Donut.jpg"
+    }
+  },
+  {
+    "file": "photos/feather.jpg",
+    "answer": "feather",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.55
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Ganzenveer bedekt met dauw. (d.j.b.) 02",
+      "author": "Dominicus Johannes Bergsma",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Ganzenveer_bedekt_met_dauw._(d.j.b.)_02.jpg"
+    }
+  },
+  {
+    "file": "photos/apple.jpg",
+    "answer": "apple",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.65,
+      0.6
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Red Apple",
+      "author": "Abhijit Tembhekar from Mumbai, India",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Red_Apple.jpg"
+    }
+  },
+  {
+    "file": "photos/paper-clip.jpg",
+    "answer": "paper-clip",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Büroklammern -- 2021 -- 6481",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:B%C3%BCroklammern_--_2021_--_6481.jpg"
+    }
+  },
+  {
+    "file": "photos/whisk.jpg",
+    "answer": "whisk",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Balloon spiral ball whisks",
+      "author": "Marie-Lan Nguyen",
+      "license": "CC BY 2.5",
+      "url": "https://commons.wikimedia.org/wiki/File:Balloon_spiral_ball_whisks.jpg"
+    }
+  },
+  {
+    "file": "photos/walnut.jpg",
+    "answer": "walnut",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.75,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Walnuts - whole and open with halved kernel",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Walnuts_-_whole_and_open_with_halved_kernel.jpg"
+    }
+  },
+  {
+    "file": "photos/fern.jpg",
+    "answer": "fern",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.4,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Lady fern at Myrstigen trail 1",
+      "author": "W.carter",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Lady_fern_at_Myrstigen_trail_1.jpg"
+    }
+  },
+  {
+    "file": "photos/potato.jpg",
+    "answer": "potato",
+    "crop": [
+      0.7,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Russet potato cultivar with sprouts",
+      "author": "ZooFari",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Russet_potato_cultivar_with_sprouts.jpg"
+    }
+  },
+  {
+    "file": "photos/toothbrush.jpg",
+    "answer": "toothbrush",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.4
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Head toothbrush blue transparent",
+      "author": "Marie-Lan Nguyen",
+      "license": "CC BY 2.5",
+      "url": "https://commons.wikimedia.org/wiki/File:Head_toothbrush_blue_transparent.jpg"
+    }
+  },
+  {
+    "file": "photos/mushroom.jpg",
+    "answer": "mushroom",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.28
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Fly Agaric mushroom 04",
+      "author": "Tony Wills",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Fly_Agaric_mushroom_04.jpg"
+    }
+  },
+  {
+    "file": "photos/pear.jpg",
+    "answer": "pear",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.62,
+      0.5
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Bartlett pear",
+      "author": "Rhododendrites",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bartlett_pear.jpg"
+    }
+  },
+  {
+    "file": "photos/marbles.jpg",
+    "answer": "marbles",
+    "crop": [
+      0.45,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.65
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "2016-09-24-15.03.23 ZS PMax Marbles-1 (29931396255)",
+      "author": "John Rusk from Berkeley, CA, United States of America",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:2016-09-24-15.03.23_ZS_PMax_Marbles-1_(29931396255).jpg"
+    }
+  },
+  {
+    "file": "photos/pencil.jpg",
+    "answer": "pencil",
+    "crop": [
+      0.6,
+      0.5
+    ],
+    "focal": [
+      0.82,
+      0.62
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Buntstifte -- 2021 -- 9164",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Buntstifte_--_2021_--_9164.jpg"
+    }
+  },
+  {
+    "file": "photos/pistachio.jpg",
+    "answer": "pistachio",
+    "crop": [
+      0.45,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.3
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Pistachio",
+      "author": "Kobi Schutz",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Pistachio.jpg"
+    }
+  },
+  {
+    "file": "photos/chain.jpg",
+    "answer": "chain",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.25
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Very rusty chain",
+      "author": "W.carter",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Very_rusty_chain.jpg"
+    }
+  },
+  {
+    "file": "photos/kettle.jpg",
+    "answer": "kettle",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.6,
+      0.25
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "DAE GG copper kettle early 1800s presumably Swedish",
+      "author": "R. Henrik Nilsson",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:DAE_GG_copper_kettle_early_1800s_presumably_Swedish.jpg"
+    }
+  },
+  {
+    "file": "photos/button.jpg",
+    "answer": "button",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Knöpfe -- 2018 -- 0501",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kn%C3%B6pfe_--_2018_--_0501.jpg"
+    }
+  },
+  {
+    "file": "photos/leaf.jpg",
+    "answer": "leaf",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.65,
+      0.5
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Backlit ficus elastica leaf texture 2014 02",
+      "author": "Julian Herzog (Website)",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Backlit_ficus_elastica_leaf_texture_2014_02.jpg"
+    }
+  },
+  {
+    "file": "photos/garlic.jpg",
+    "answer": "garlic",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.25,
+      0.35
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Garlic bulbs and cloves",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Garlic_bulbs_and_cloves.jpg"
+    }
+  },
+  {
+    "file": "photos/coffee-beans.jpg",
+    "answer": "coffee-beans",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Coffee Beans macro 1",
+      "author": "Daniel Schwen",
+      "license": "CC BY 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Coffee_Beans_macro_1.jpg"
+    }
+  },
+  {
+    "file": "photos/grapes.jpg",
+    "answer": "grapes",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Redgrape",
+      "author": "Mahdiz",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Redgrape.jpg"
+    }
+  },
+  {
+    "file": "photos/mango.jpg",
+    "answer": "mango",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.22,
+      0.42
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Mangos - single and halved",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Mangos_-_single_and_halved.jpg"
+    }
+  },
+  {
+    "file": "photos/owl.jpg",
+    "answer": "owl",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.8
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Eurasian eagle-owl (44088)",
+      "author": "Rhododendrites",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Eurasian_eagle-owl_(44088).jpg"
+    }
+  },
+  {
+    "file": "photos/orange.jpg",
+    "answer": "orange",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.52,
+      0.25
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Orange -- 2022 -- 9715",
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Orange_--_2022_--_9715.jpg"
+    }
+  },
+  {
+    "file": "photos/comb.jpg",
+    "answer": "comb",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.55
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Plastic comb, 2015-06-07",
+      "author": "Crisco 1492",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Plastic_comb,_2015-06-07.jpg"
+    }
+  },
+  {
+    "file": "photos/peanut.jpg",
+    "answer": "peanut",
+    "crop": [
+      0.65,
+      0.5
+    ],
+    "focal": [
+      0.7,
+      0.3
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Peanuts (Arachis hypogaea) - in shell, shell cracked open, shelled, peeled",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Peanuts_(Arachis_hypogaea)_-_in_shell,_shell_cracked_open,_shelled,_peeled.jpg"
+    }
+  },
+  {
+    "file": "photos/eggplant.jpg",
+    "answer": "eggplant",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.47
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "3 x Eggplant scab 2017 A",
+      "author": "Fructibus",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:3_x_Eggplant_scab_2017_A.jpg"
+    }
+  },
+  {
+    "file": "photos/popcorn.jpg",
+    "answer": "popcorn",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Popcorn 1",
+      "author": "Gaurav Dhwaj Khadka",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Popcorn_1.jpg"
+    }
+  },
+  {
+    "file": "photos/pumpkin.jpg",
+    "answer": "pumpkin",
+    "crop": [
+      0.6,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.5
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Cucurbita 2011 G1",
+      "author": "George Chernilevsky",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Cucurbita_2011_G1.jpg"
+    }
+  },
+  {
+    "file": "photos/bagel.jpg",
+    "answer": "bagel",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.3,
+      0.42
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Bagel-Plain-Alt",
+      "author": "Evan-Amos",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Bagel-Plain-Alt.jpg"
+    }
+  },
+  {
+    "file": "photos/cherry.jpg",
+    "answer": "cherry",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.45
+    ],
+    "difficulty": "easy",
+    "levels": [
+      0.02,
+      0.045,
+      0.1,
+      0.25,
+      0.5,
+      1
+    ],
+    "credit": {
+      "title": "Cherries in basket 2018 G1",
+      "author": "George Chernilevsky",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Cherries_in_basket_2018_G1.jpg"
+    }
+  },
+  {
+    "file": "photos/lemon.jpg",
+    "answer": "lemon",
+    "crop": [
+      0.65,
+      0.5
+    ],
+    "focal": [
+      0.25,
+      0.4
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Lemon - whole and split",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Lemon_-_whole_and_split.jpg"
+    }
+  },
+  {
+    "file": "photos/seashell.jpg",
+    "answer": "seashell",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.25
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Distorsio anus 01",
+      "author": "H. Zell",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Distorsio_anus_01.JPG"
+    }
+  },
+  {
+    "file": "photos/avocado.jpg",
+    "answer": "avocado",
+    "crop": [
+      0.6,
+      0.5
+    ],
+    "focal": [
+      0.2,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Avocado Hass - single and halved",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Avocado_Hass_-_single_and_halved.jpg"
+    }
+  },
+  {
+    "file": "photos/peas.jpg",
+    "answer": "peas",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Peas in pods 2016 G1",
+      "author": "George Chernilevsky",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Peas_in_pods_2016_G1.jpg"
+    }
+  },
+  {
+    "file": "photos/sweater.jpg",
+    "answer": "sweater",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Hand-knitted pullover",
+      "author": "Akkbula",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Hand-knitted_pullover.jpg"
+    }
+  },
+  {
+    "file": "photos/colander.jpg",
+    "answer": "colander",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.55,
+      0.3
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Blue colander",
+      "author": "FAP",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Blue_colander.jpg"
+    }
+  },
+  {
+    "file": "photos/watermelon.jpg",
+    "answer": "watermelon",
+    "crop": [
+      0.45,
+      0.5
+    ],
+    "focal": [
+      0.4,
+      0.6
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "البطيخ الأحمر",
+      "author": "فارس البلغم",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D8%A8%D8%B7%D9%8A%D8%AE_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1.JPG"
+    }
+  },
+  {
+    "file": "photos/blueberry.jpg",
+    "answer": "blueberry",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.35,
+      0.3
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Dish of blueberries",
+      "author": "Petar Milošević",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Dish_of_blueberries.jpg"
+    }
+  },
+  {
+    "file": "photos/wrench.jpg",
+    "answer": "wrench",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.35
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Monkey wrench Mexico 1900",
+      "author": "Carlos Valenzuela Montuy",
+      "license": "CC BY 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Monkey_wrench_Mexico_1900.jpg"
+    }
+  },
+  {
+    "file": "photos/bread.jpg",
+    "answer": "bread",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.4
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Home made sour dough bread",
+      "author": "Tomascastelazo",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Home_made_sour_dough_bread.jpg"
+    }
+  },
+  {
+    "file": "photos/pomegranate.jpg",
+    "answer": "pomegranate",
+    "crop": [
+      0.4,
+      0.5
+    ],
+    "focal": [
+      0.25,
+      0.5
+    ],
+    "difficulty": "medium",
+    "credit": {
+      "title": "Pomegranate fruit - whole and piece with arils",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Pomegranate_fruit_-_whole_and_piece_with_arils.jpg"
+    }
+  },
+  {
+    "file": "photos/shuttlecock.jpg",
+    "answer": "shuttlecock",
+    "crop": [
+      0.55,
+      0.5
+    ],
+    "focal": [
+      0.45,
+      0.45
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Left wings shuttlecocks",
+      "author": "De-Shao Liu (Terry850324)",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Left_wings_shuttlecocks.jpg"
+    }
+  },
+  {
+    "file": "photos/chess-piece.jpg",
+    "answer": "chess-piece",
+    "crop": [
+      0.5,
+      0.55
+    ],
+    "focal": [
+      0.62,
+      0.22
+    ],
+    "difficulty": "hard",
+    "credit": {
+      "title": "Chess knight 0971",
+      "author": "che (production: Nolanus, lighting assistance: Danny B.)",
+      "license": "CC BY-SA 2.5",
+      "url": "https://commons.wikimedia.org/wiki/File:Chess_knight_0971.jpg"
+    }
+  },
+  {
+    "file": "photos/rope.jpg",
+    "answer": "rope",
+    "crop": [
+      0.5,
+      0.5
+    ],
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "difficulty": "easy",
+    "credit": {
+      "title": "Coiled rope 03235",
+      "author": "Nevit Dilmen",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Coiled_rope_03235.jpg"
+    }
   }
 ]
