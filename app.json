@@ -11,7 +11,8 @@
       "bundleIdentifier": "app.barqlab.pullback",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
