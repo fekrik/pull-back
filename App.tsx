@@ -3,6 +3,7 @@ import type React from 'react';
 import * as Haptics from 'expo-haptics';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -19,14 +20,15 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { GuessInput } from './src/components/GuessInput';
 import { ZoomImage } from './src/components/ZoomImage';
 import { ANSWERS_BY_ID, Answer } from './src/data/answers';
-import { Puzzle } from './src/data/puzzles';
+import type { Puzzle } from './src/data/puzzles';
+import { loadDaily, loadPool, prefetch } from './src/data/source';
 import {
-  currentPuzzle,
-  hasFreePlay,
+  byId,
   isOver,
   LIVES,
   newRun,
   nextPhoto,
+  puzzleAt,
   Run,
   settle,
 } from './src/game/freeplay';
@@ -40,7 +42,6 @@ import {
   MAX_GUESSES,
   misses,
   newRound,
-  puzzleFor,
   puzzleNumberFor,
   RoundState,
   score,
@@ -50,6 +51,16 @@ import {
 } from './src/game/logic';
 import { computeStats, EMPTY_FREE, load, recordFinished, save, SaveData } from './src/game/storage';
 import { C } from './src/theme';
+
+/** Stand-in while the real puzzle loads; never shown (the body renders a spinner instead). */
+const PLACEHOLDER: Puzzle = {
+  id: 'loading',
+  answerId: Object.keys(ANSWERS_BY_ID)[0],
+  image: { uri: '' },
+  focal: { x: 0.5, y: 0.5 },
+  difficulty: 'easy',
+  credit: { title: '', author: '', license: '' },
+};
 
 const haptic = (kind: 'tap' | 'wrong' | 'win' | 'lose') => {
   if (Platform.OS === 'web') return;
@@ -81,6 +92,25 @@ function Game() {
   const [run, setRun] = useState<Run | null>(null);
   const [sheet, setSheet] = useState<null | 'stats' | 'howto'>(null);
   const [toast, setToast] = useState<string | null>(null);
+  // Puzzles come from the server on native (see src/data/source.ts).
+  const [dailyPuzzle, setDailyPuzzle] = useState<{ n: number; p: Puzzle } | null>(null);
+  const [loadErr, setLoadErr] = useState(false);
+  const [pool, setPool] = useState<Puzzle[] | null>(null);
+  const [reload, setReload] = useState(0);
+  useEffect(() => {
+    let live = true;
+    setLoadErr(false);
+    loadDaily(todayNumber)
+      .then((p) => live && setDailyPuzzle({ n: todayNumber, p }))
+      .catch(() => live && setLoadErr(true));
+    loadPool((p) => live && setPool(p))
+      .then((p) => live && setPool(p))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [todayNumber, reload]);
+  const ids = useMemo(() => byId(pool ?? []), [pool]);
 
   useEffect(() => {
     load().then((d) => {
@@ -119,20 +149,37 @@ function Game() {
 
   const startFreePlay = () => {
     haptic('tap');
+    if (!pool) {
+      // No pool yet (offline on first launch): try again, and stay on the daily.
+      setReload((r) => r + 1);
+      flash("Couldn't load Free play. Check your connection and try again.");
+      return;
+    }
     setMode('free');
     setSheet(null);
-    if (!run || isOver(run)) saveRun(newRun(free.recent));
+    if (!run || isOver(run)) saveRun(newRun(pool, free.recent));
   };
 
   // Free play with no run yet (first render) falls back to the daily until the run exists.
-  const inFree = mode === 'free' && run != null;
-  const puzzle: Puzzle = inFree ? currentPuzzle(run!) : puzzleFor(todayNumber);
+  const inFree = mode === 'free' && run != null && pool != null;
+  const loaded: Puzzle | null = inFree
+    ? puzzleAt(run!, ids, pool!)
+    : dailyPuzzle?.n === todayNumber
+      ? dailyPuzzle.p
+      : null;
+  const ready = loaded != null;
+  const puzzle: Puzzle = loaded ?? PLACEHOLDER;
+  // Download the next free-play photo while this one is being played.
+  useEffect(() => {
+    if (inFree) prefetch(puzzleAt(run!, ids, pool!, 1));
+  }, [inFree, run?.pos, ids]);
   const round = inFree ? run!.round : daily;
   const level = currentLevel(round);
   const answer = ANSWERS_BY_ID[puzzle.answerId];
   const shares = puzzle.levels ?? DEFAULT_LEVEL_SHARES;
 
   const onGuess = (g: Answer | 'skip') => {
+    if (!ready) return;
     const next = applyGuess(round, puzzle, g === 'skip' ? 'skip' : { answerId: g.id });
     if (next.status === 'won') haptic('win');
     else if (next.status === 'lost') haptic('lose');
@@ -226,7 +273,7 @@ function Game() {
           </Pressable>
         </View>
 
-        {hasFreePlay() && (
+        {(
           <View style={styles.tabs}>
             {(['daily', 'free'] as const).map((m) => {
               const active = (m === 'free') === inFree;
@@ -252,6 +299,22 @@ function Game() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          {!ready && (
+            <View style={[styles.loading, { width: size, height: size }]}>
+              {loadErr && !inFree ? (
+                <>
+                  <Text style={styles.loadingText}>Couldn't load today's photo.{'\n'}Check your connection.</Text>
+                  <Pressable onPress={() => setReload((r) => r + 1)} style={[styles.secondary, { paddingHorizontal: 28 }]}>
+                    <Text style={styles.secondaryText}>Try again</Text>
+                  </Pressable>
+                </>
+              ) : (
+                <ActivityIndicator color={C.dim} />
+              )}
+            </View>
+          )}
+          {ready && (
+          <>
           <ZoomImage
             key={inFree ? `free-${run!.pos}-${puzzle.id}` : `daily-${puzzle.id}`}
             source={puzzle.image}
@@ -287,7 +350,7 @@ function Game() {
               answer={answer}
               credit={puzzle.credit}
               onShare={() => doShare(shareText(round))}
-              onFreePlay={hasFreePlay() ? startFreePlay : undefined}
+              onFreePlay={startFreePlay}
             />
           )}
           {finished && inFree && (
@@ -302,7 +365,7 @@ function Game() {
               }}
               onNewRun={() => {
                 haptic('tap');
-                saveRun(newRun(free.recent));
+                saveRun(newRun(pool!, free.recent));
               }}
               onShare={() =>
                 doShare(
@@ -312,8 +375,10 @@ function Game() {
             />
           )}
           </View>
+          </>
+          )}
         </ScrollView>
-        {!finished && (
+        {!finished && ready && (
           <View style={styles.bottomBar}>
             <View style={{ width: size }}>
               <GuessInput exclude={guessed} onGuess={onGuess} onSkip={() => onGuess('skip')} />
@@ -339,7 +404,7 @@ function Game() {
       </Sheet>
       <Sheet visible={sheet === 'stats'} onClose={() => setSheet(null)}>
         {data && <StatsView data={data} today={today} />}
-        {hasFreePlay() && (
+        {(
           <View style={{ marginTop: 18 }}>
             <Text style={styles.distTitle}>Free play</Text>
             <View style={styles.statRow}>
@@ -609,6 +674,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     textTransform: 'capitalize',
   },
+  loading: { alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: C.card, gap: 6 },
+  loadingText: { color: C.dim, fontSize: 15, textAlign: 'center', lineHeight: 22 },
   resultWrap: { width: '100%', alignItems: 'center' },
   result: { alignItems: 'center', marginTop: 14, width: '100%', maxWidth: 440 },
   resultHead: { color: C.text, fontSize: 26, fontWeight: '800' },

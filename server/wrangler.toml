@@ -1,0 +1,12 @@
+name = "barqlab-pullback"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [{ pattern = "pullback.barqlab.app", custom_domain = true }]
+
+# Photos (public/i/*.jpg, built by scripts/build-server.mjs) are static assets.
+# The worker runs first for /v1/* (puzzle data) and the landing page.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/v1/*", "/"]

@@ -1,5 +1,4 @@
-import { FREEPLAY } from '../data/freeplay';
-import { Puzzle } from '../data/puzzles';
+import type { Puzzle } from '../data/puzzles';
 import { FAIL_SCORE, newRound, RoundState, score } from './logic';
 
 /**
@@ -18,9 +17,7 @@ export type Run = {
   round: RoundState;
 };
 
-export const FREEPLAY_BY_ID: Record<string, Puzzle> = Object.fromEntries(FREEPLAY.map((p) => [p.id, p]));
-
-export const hasFreePlay = () => FREEPLAY.length > 0;
+export const byId = (pool: Puzzle[]): Record<string, Puzzle> => Object.fromEntries(pool.map((p) => [p.id, p]));
 
 function shuffle<T>(a: T[]) {
   const b = [...a];
@@ -35,10 +32,10 @@ function shuffle<T>(a: T[]) {
  * Ramp: start with easy photos, mix in medium, then hard. Photos the player has seen
  * recently go to the back so a new run feels fresh.
  */
-export function buildOrder(recent: string[] = []): string[] {
+export function buildOrder(pool: Puzzle[], recent: string[] = []): string[] {
   const seen = new Set(recent);
   const tier = (d: Puzzle['difficulty']) => {
-    const all = shuffle(FREEPLAY.filter((p) => p.difficulty === d).map((p) => p.id));
+    const all = shuffle(pool.filter((p) => p.difficulty === d).map((p) => p.id));
     return [...all.filter((id) => !seen.has(id)), ...all.filter((id) => seen.has(id))];
   };
   const easy = tier('easy');
@@ -54,11 +51,13 @@ export function buildOrder(recent: string[] = []): string[] {
   return out;
 }
 
-export function newRun(recent: string[] = []): Run {
-  return { order: buildOrder(recent), pos: 0, lives: LIVES, points: 0, solved: 0, round: newRound(1) };
+export function newRun(pool: Puzzle[], recent: string[] = []): Run {
+  return { order: buildOrder(pool, recent), pos: 0, lives: LIVES, points: 0, solved: 0, round: newRound(1) };
 }
 
-export const currentPuzzle = (run: Run) => FREEPLAY_BY_ID[run.order[run.pos % run.order.length]];
+/** Photo at `offset` from the run's current one. Falls back to the first pool photo if the pool changed. */
+export const puzzleAt = (run: Run, ids: Record<string, Puzzle>, pool: Puzzle[], offset = 0) =>
+  ids[run.order[(run.pos + offset) % run.order.length]] ?? pool[(run.pos + offset) % pool.length];
 
 /** Apply the finished round to the run's lives and points. */
 export function settle(run: Run, round: RoundState): Run {

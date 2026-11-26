@@ -43,3 +43,8 @@ yarn-error.*
 # Single-file preview build
 dist-single/
 dist-artifact/
+
+# Server build output (scripts/build-server.mjs)
+server/public/i/
+server/data/
+server/.wrangler/

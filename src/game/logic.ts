@@ -1,4 +1,4 @@
-import { PUZZLES, Puzzle } from '../data/puzzles';
+import type { Puzzle } from '../data/puzzles';
 
 export const MAX_GUESSES = 6;
 export const FAIL_SCORE = 7;
@@ -41,14 +41,6 @@ const LAUNCH_KEY = `${LAUNCH_DATE.y}-${String(LAUNCH_DATE.m).padStart(2, '0')}-$
 
 export function puzzleNumberFor(dayKey: string) {
   return Math.max(1, daysBetween(LAUNCH_KEY, dayKey) + 1);
-}
-
-/**
- * Prototype only: puzzles are bundled and cycle. The real app downloads a few days ahead
- * from the server so future answers are not in the binary.
- */
-export function puzzleFor(number: number): Puzzle {
-  return PUZZLES[(number - 1) % PUZZLES.length];
 }
 
 export function newRound(puzzleNumber: number): RoundState {
