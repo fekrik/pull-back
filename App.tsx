@@ -192,7 +192,7 @@ function Game() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <ZoomImage source={puzzle.image} size={size} focal={puzzle.focal} shares={shares} level={level} />
+          <ZoomImage key={`${mode.kind}-${puzzle.id}`} source={puzzle.image} size={size} focal={puzzle.focal} shares={shares} level={level} />
 
           <LevelDots round={round} />
 

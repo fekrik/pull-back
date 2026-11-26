@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -21,10 +21,19 @@ type Props = {
  */
 export function ZoomImage({ source, size, focal, shares, level, duration = 650 }: Props) {
   const lvl = useSharedValue(level);
+  // Keep the photo hidden until it has loaded with the zoom applied, so the full
+  // picture never flashes on screen before the crop takes effect.
+  const [loaded, setLoaded] = useState(false);
   const logZooms = shares.map((s) => Math.log(1 / Math.sqrt(s)));
 
   useEffect(() => {
-    lvl.value = withTiming(level, { duration, easing: Easing.inOut(Easing.cubic) });
+    // Only ever animate outwards. Moving to a tighter level (a new puzzle) must jump
+    // straight there, or the zoom-in would flash the whole photo first.
+    if (level > lvl.value) {
+      lvl.value = withTiming(level, { duration, easing: Easing.inOut(Easing.cubic) });
+    } else {
+      lvl.value = level;
+    }
   }, [level, duration, lvl]);
 
   const style = useAnimatedStyle(() => {
@@ -47,8 +56,13 @@ export function ZoomImage({ source, size, focal, shares, level, duration = 650 }
 
   return (
     <View style={[styles.frame, { width: size, height: size }]}>
-      <Animated.View style={[{ width: size, height: size }, style]}>
-        <Image source={source} style={{ width: size, height: size }} resizeMode="cover" />
+      <Animated.View style={[{ width: size, height: size, opacity: loaded ? 1 : 0 }, style]}>
+        <Image
+          source={source}
+          style={{ width: size, height: size }}
+          resizeMode="cover"
+          onLoad={() => requestAnimationFrame(() => setLoaded(true))}
+        />
       </Animated.View>
     </View>
   );
