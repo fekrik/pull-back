@@ -66,7 +66,7 @@ function Game() {
   const [mode, setMode] = useState<Mode>({ kind: 'daily' });
   const [practice, setPractice] = useState<RoundState | null>(null);
   const [daily, setDaily] = useState<RoundState>(newRound(todayNumber));
-  const [sheet, setSheet] = useState<null | 'stats' | 'howto' | 'practice'>(null);
+  const [sheet, setSheet] = useState<null | 'stats' | 'howto'>(null);
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
@@ -98,6 +98,10 @@ function Game() {
 
     if (mode.kind === 'practice') {
       setPractice(next);
+      if (next.status !== 'playing' && data) {
+        const played = data.practicePlayed ?? [];
+        if (!played.includes(puzzle.id)) persist({ ...data, practicePlayed: [...played, puzzle.id] });
+      }
       return;
     }
     setDaily(next);
@@ -134,6 +138,27 @@ function Game() {
     }
   };
 
+  /** Practice: jump to a random puzzle the player hasn't done yet (never today's daily). */
+  const playRandom = () => {
+    const todayIndex = (todayNumber - 1) % PUZZLES.length;
+    const played = new Set(data?.practicePlayed ?? []);
+    const current = mode.kind === 'practice' ? mode.index : -1;
+    let pool = PUZZLES.map((_, i) => i).filter(
+      (i) => i !== todayIndex && i !== current && !played.has(PUZZLES[i].id),
+    );
+    if (!pool.length) {
+      // Played them all: start the cycle again.
+      pool = PUZZLES.map((_, i) => i).filter((i) => i !== todayIndex && i !== current);
+      if (data) persist({ ...data, practicePlayed: [] });
+      flash("You've played them all. Starting over.");
+    }
+    const i = pool[Math.floor(Math.random() * pool.length)];
+    haptic('tap');
+    setPractice(newRound(i + 1));
+    setMode({ kind: 'practice', index: i });
+    setSheet(null);
+  };
+
   const flash = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 2200);
@@ -154,7 +179,7 @@ function Game() {
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.title}>Pull Back</Text>
             <Text style={styles.subtitle}>
-              {mode.kind === 'daily' ? `Daily #${todayNumber}` : `Practice ${mode.index + 1} · doesn't count`}
+              {mode.kind === 'daily' ? `Daily #${todayNumber}` : "Practice · doesn't count"}
             </Text>
           </View>
           <Pressable onPress={() => setSheet('stats')} hitSlop={10}>
@@ -193,7 +218,7 @@ function Game() {
               onShare={doShare}
               isDaily={mode.kind === 'daily'}
               onBackToDaily={() => setMode({ kind: 'daily' })}
-              onPractice={() => setSheet('practice')}
+              onNext={playRandom}
             />
           ) : null}
         </ScrollView>
@@ -220,36 +245,9 @@ function Game() {
       </Sheet>
       <Sheet visible={sheet === 'stats'} onClose={() => setSheet(null)}>
         {data && <StatsView data={data} today={today} />}
-        <Pressable style={styles.secondary} onPress={() => setSheet('practice')}>
-          <Text style={styles.secondaryText}>Practice puzzles</Text>
+        <Pressable style={styles.secondary} onPress={playRandom}>
+          <Text style={styles.secondaryText}>Play a random puzzle</Text>
         </Pressable>
-      </Sheet>
-      <Sheet visible={sheet === 'practice'} onClose={() => setSheet(null)}>
-        <Text style={styles.sheetTitle}>Practice</Text>
-        <Text style={styles.sheetBody}>
-          Every puzzle in the prototype. These don't count toward your streak.
-        </Text>
-        <View style={styles.grid}>
-          {PUZZLES.map((p, i) => (
-            <Pressable
-              key={p.id}
-              style={({ pressed }) => [styles.gridItem, pressed && { backgroundColor: C.raised }]}
-              onPress={() => {
-                setPractice(newRound(i + 1));
-                setMode({ kind: 'practice', index: i });
-                setSheet(null);
-              }}
-            >
-              <Text style={styles.gridNum}>{i + 1}</Text>
-              <Text style={styles.gridDiff}>{p.difficulty}</Text>
-            </Pressable>
-          ))}
-        </View>
-        {mode.kind === 'practice' && (
-          <Pressable style={styles.secondary} onPress={() => { setMode({ kind: 'daily' }); setSheet(null); }}>
-            <Text style={styles.secondaryText}>Back to today's puzzle</Text>
-          </Pressable>
-        )}
       </Sheet>
     </SafeAreaView>
   );
@@ -290,7 +288,7 @@ function Result({
   onShare,
   isDaily,
   onBackToDaily,
-  onPractice,
+  onNext,
 }: {
   round: RoundState;
   answer: Answer;
@@ -298,7 +296,7 @@ function Result({
   onShare: () => void;
   isDaily: boolean;
   onBackToDaily: () => void;
-  onPractice: () => void;
+  onNext: () => void;
 }) {
   const s = score(round)!;
   const [clock, setClock] = useState(untilNextPuzzle());
@@ -324,19 +322,29 @@ function Result({
       <Text selectable style={styles.squares}>
         {shareTextSquares(round)}
       </Text>
-      <Pressable onPress={onShare} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
-        <Text style={styles.primaryText}>Share result</Text>
-      </Pressable>
       {isDaily ? (
-        <Text style={styles.next}>Next photo in {clock}</Text>
+        <>
+          <Pressable onPress={onShare} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
+            <Text style={styles.primaryText}>Share result</Text>
+          </Pressable>
+          <Text style={styles.next}>Next daily photo in {clock}</Text>
+          <Pressable onPress={onNext} style={({ pressed }) => [styles.secondary, styles.stretch, pressed && { opacity: 0.8 }]}>
+            <Text style={styles.secondaryText}>Play a random puzzle</Text>
+          </Pressable>
+        </>
       ) : (
-        <Pressable onPress={onBackToDaily}>
-          <Text style={styles.link}>Back to today's puzzle</Text>
-        </Pressable>
+        <>
+          <Pressable onPress={onNext} style={({ pressed }) => [styles.primary, pressed && { opacity: 0.85 }]}>
+            <Text style={styles.primaryText}>Next puzzle</Text>
+          </Pressable>
+          <Pressable onPress={onShare}>
+            <Text style={styles.link}>Share result</Text>
+          </Pressable>
+          <Pressable onPress={onBackToDaily}>
+            <Text style={styles.link}>Back to today's puzzle</Text>
+          </Pressable>
+        </>
       )}
-      <Pressable onPress={onPractice}>
-        <Text style={styles.link}>Play a practice puzzle</Text>
-      </Pressable>
       <Text style={styles.credit}>
         Photo: {credit.title} by {credit.author}, {credit.license}
       </Text>
@@ -459,6 +467,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
   },
+  stretch: { alignSelf: 'stretch' },
   secondaryText: { color: C.text, fontSize: 16, fontWeight: '600' },
   next: { color: C.dim, fontSize: 15, marginTop: 14, fontVariant: ['tabular-nums'] },
   link: { color: C.accent, fontSize: 15, marginTop: 12 },
@@ -495,17 +504,4 @@ const styles = StyleSheet.create({
   distLabel: { color: C.dim, width: 18, fontSize: 14 },
   distBar: { backgroundColor: C.raised, borderRadius: 5, paddingVertical: 3, paddingHorizontal: 6, alignItems: 'flex-end' },
   distN: { color: C.text, fontSize: 12, fontWeight: '700' },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 6 },
-  gridItem: {
-    width: 62,
-    height: 62,
-    borderRadius: 12,
-    backgroundColor: C.bg,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: C.line,
-  },
-  gridNum: { color: C.text, fontSize: 18, fontWeight: '800' },
-  gridDiff: { color: C.faint, fontSize: 10, marginTop: 2 },
 });

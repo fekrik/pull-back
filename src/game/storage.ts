@@ -11,6 +11,8 @@ export type SaveData = {
   /** Today's unfinished round, so closing the app does not reset it. */
   inProgress?: { day: string; round: RoundState };
   seenHowTo?: boolean;
+  /** Puzzle ids finished in practice, so "Next puzzle" doesn't repeat them. */
+  practicePlayed?: string[];
 };
 
 const EMPTY: SaveData = { history: {} };
