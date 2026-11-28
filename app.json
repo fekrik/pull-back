@@ -12,7 +12,7 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "buildNumber": "6",
+      "buildNumber": "7",
       "appleTeamId": "8M4GSR8P53"
     },
     "android": {
@@ -23,7 +23,8 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "app.barqlab.pullback"
+      "package": "app.barqlab.pullback",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png",

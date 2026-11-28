@@ -250,7 +250,7 @@ function Game() {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
       <StatusBar style="light" />
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <View style={styles.header}>
           <Pressable onPress={() => setSheet('howto')} hitSlop={10}>
             <Text style={styles.headerBtn}>?</Text>
